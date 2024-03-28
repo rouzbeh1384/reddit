@@ -1,6 +1,7 @@
 package org.example;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.UUID;
 
@@ -10,10 +11,23 @@ public class Account {
 
     private String passWord;
 
-    private  final String Time= String.valueOf(LocalDate.now());;
 
-    private UUID uuid= UUID.randomUUID();
 
+    private UUID uuid;
+
+    private int HourTime;
+
+    private int MinTime;
+
+    public Account(String passWord,String email)
+    {
+        uuid= UUID.randomUUID();
+        this.passWord=passWord;
+        this.Email=email;
+        LocalTime currentTime = LocalTime.now();
+        HourTime= currentTime.getHour();
+        MinTime=currentTime.getMinute();
+    }
 
    public boolean verifyPassWord(String passWord) {
 
@@ -32,8 +46,12 @@ public class Account {
         return uuid;
     }
 
+    public int getHourTime() {
+        return HourTime;
+    }
 
-
-
+    public int getMinTime() {
+        return MinTime;
+    }
 
 }
