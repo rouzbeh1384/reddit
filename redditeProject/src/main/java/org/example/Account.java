@@ -13,11 +13,11 @@ public class Account {
 
 
 
-    private UUID uuid;
+    private final UUID uuid;
 
-    private int HourTime;
+    private final int HourTime;
 
-    private int MinTime;
+    private final int MinTime;
 
     public Account(String passWord,String email)
     {
@@ -28,17 +28,24 @@ public class Account {
         HourTime= currentTime.getHour();
         MinTime=currentTime.getMinute();
     }
+    public Account(String passWord)
+    {
+        uuid= UUID.randomUUID();
+        this.passWord=passWord;
+        LocalTime currentTime = LocalTime.now();
+        HourTime= currentTime.getHour();
+        MinTime=currentTime.getMinute();
+
+    }
 
    public boolean verifyPassWord(String passWord) {
-
-
-       return false;
+       return this.passWord.equals(passWord);
    }
 
-   public void changepassword(String LastpassWord,String passWord) {
-       if(verifyPassWord(LastpassWord)==true)
+   public void changepassword(String LastpassWord,String newPassWord) {
+       if(verifyPassWord(LastpassWord))
        {
-           this.passWord=passWord;
+           this.passWord=newPassWord;
        }
    }
 
@@ -54,4 +61,8 @@ public class Account {
         return MinTime;
     }
 
+    public String getEmail()
+    {
+        return this.Email;
+    }
 }
