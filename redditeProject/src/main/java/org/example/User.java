@@ -9,7 +9,7 @@ public class User extends  Account{
 
     public ArrayList<SubReddit> ownSubreddit;
 
-    public String userName;
+    private String userName;
 
 
     public User(String User,String PassWord,String Email) {
@@ -47,5 +47,10 @@ public class User extends  Account{
             System.out.println("pay for start premium  ");
 
         }
+    }
+
+
+    public String Get_username(){
+        return this.userName;
     }
 }

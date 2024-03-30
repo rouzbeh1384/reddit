@@ -14,6 +14,11 @@ public class SubReddit extends Account{
 
     ArrayList<User> Owner_Addmin;
     String Name;
+
+    int  notify=0 ;
+
+
+
     public SubReddit(String NameSub,User owner,String password) throws IOException {
         super(password);
         Name=NameSub;
@@ -22,6 +27,7 @@ public class SubReddit extends Account{
         FileWriter Name= new FileWriter("file.txt");
         Name.write("mt name is rouzbeh");
         Owner_Addmin=new ArrayList<>();
+        Owner_Addmin.add(owner);
     }
     public void joind (User x){
         users.add(x);
@@ -41,6 +47,17 @@ public class SubReddit extends Account{
         }
     }
 
+    public void Set_post(Post post)
+    {
+        this.posts.add(post);
+        this.notify++;
+    }
+
+    public int Show_notify(){
+        if (notify!=0)
+            return notify;
+        return 0;
+    }
 
 
 

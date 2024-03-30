@@ -68,7 +68,7 @@ public class Main {
 
     public static void   runuser(User x,ArrayList<SubReddit> Sub)
     {
-            System.out.println("hi "+x.userName);
+            System.out.println("hi "+x.Get_username());
             while (true) {
                 System.out.println("1-join to subreddit 2- creat sub 3-Show my subreddit 4-21-exit");
                 Scanner scanner = new Scanner(System.in);
@@ -109,42 +109,55 @@ public class Main {
                     }
                     break;
                     case 3: {
-                        int id = 0;
-                        try {
-                            for (SubReddit c : x.ownSubreddit) {
-                                System.out.print(++id + " " + c.Name + "\n");
-                            }
-                            System.out.print("you can see post of sub please choose ");
-                            int a = scanner.nextInt() - 1;
-                            if(!Sub.get(a).posts.isEmpty()) {
-                                for (int w = 0; w < Sub.get(a).posts.size(); w++)
-                                    System.out.print(Sub.get(a).posts.get(w).getName()+"\n");//TODO ->add time and writer
-                            }
-
-                            System.out.println("Add  post  ?  TRUE 0R FALSE ");
-                            String str=scanner.next();
-                            if (str.equals("yes")||str.equals("y")||str.equals("1")||str.equals("ok")) {
-                                System.out.println("enter post");
-
-                                String srt = scanner.nextLine();
-
-                                System.out.println(srt);
-
-                                Post post = new Post(srt);
-                                Sub.get(a ).posts.add(post);
-
-                            }
-
-                        } catch (Exception e) {
-                            System.out.print("no\n");
-                        }
-
+                        Use_Sub_reddit(x,Sub);
                     }
                     break;
                 }
             }
 
 
+
+    }
+    public static void Use_Sub_reddit(User x,ArrayList<SubReddit> Sub){
+        Scanner scanner=new Scanner(System.in);
+        int id = 0;
+        try {
+            for (SubReddit c : x.ownSubreddit) {
+                System.out.print(++id + " --- " + c.Name +" |--->  "+c.Show_notify()+"  |-----| "+c.getHourTime()+
+                        " |-----| "+ c.Owner_Addmin.get(0)+ "\n");
+            }
+            System.out.print("you can see post of sub please choose ");
+            int a = scanner.nextInt() - 1;
+            if(!Sub.get(a).posts.isEmpty()) {
+                for (int w = 0; w < Sub.get(a).posts.size(); w++)
+                    System.out.print(Sub.get(a).posts.get(w).getName()+"\n"
+                            +Sub.get(a).posts.get(w).TimeH()+":"+Sub.get(a).posts.get(w).TimeM()+
+                            "\n"+"By: "+Sub.get(a).posts.get(w).writer()+"\n\n");
+            }
+
+            System.out.println("Add  post  ? (pattern y|yes|1|ok post) ");
+//            System.out.println("1- Add post  2- like or dislike 3-show comment 4-add comment   ");
+
+            String str=scanner.next();
+            if (str.equals("yes")||str.equals("y")||str.equals("1")||str.equals("ok")) {
+                String srt;
+                do {
+                     srt= scanner.nextLine();
+                    System.out.println("\n \n are you sure no ?"+ srt);
+                }while (scanner.next().equals("no")||scanner.next().equals("0")||scanner.next().equals("n"));
+
+                Post post = new Post(srt);
+
+                Sub.get(a).Set_post(post);
+
+
+
+
+            }
+
+        } catch (Exception e) {
+            System.out.print("no\n");
+        }
 
     }
 
