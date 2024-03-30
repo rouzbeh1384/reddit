@@ -73,7 +73,11 @@ public class Main {
                 System.out.println("1-join to subreddit 2- creat sub 3-Show my subreddit 4-21-exit");
                 Scanner scanner = new Scanner(System.in);
                 int i = 1;
-                switch (scanner.nextInt()) {
+                int re=scanner.nextInt();
+                if (re==21)
+                    break;
+
+                switch (re) {
 
 
                     case 1: {
@@ -114,24 +118,29 @@ public class Main {
                             int a = scanner.nextInt() - 1;
                             if(!Sub.get(a).posts.isEmpty()) {
                                 for (int w = 0; w < Sub.get(a).posts.size(); w++)
-                                    System.out.print(Sub.get(a).posts.get(w));
+                                    System.out.print(Sub.get(a).posts.get(w).getName()+"\n");//TODO ->add time and writer
                             }
-                            System.out.print("see post in sub reddit ?  TRUE 0R FALSE ");
 
-                            System.out.print("Add  post  ?  TRUE 0R FALSE ");
-                            if (scanner.next().equals( "true")) {
-                                String srt = scanner.next();
+                            System.out.println("Add  post  ?  TRUE 0R FALSE ");
+                            String str=scanner.next();
+                            if (str.equals("yes")||str.equals("y")||str.equals("1")||str.equals("ok")) {
+                                System.out.println("enter post");
+
+                                String srt = scanner.nextLine();
+
+                                System.out.println(srt);
+
                                 Post post = new Post(srt);
-                                Sub.get(i - 1).posts.add(post);
+                                Sub.get(a ).posts.add(post);
 
                             }
-
 
                         } catch (Exception e) {
                             System.out.print("no\n");
                         }
-                    }
 
+                    }
+                    break;
                 }
             }
 
