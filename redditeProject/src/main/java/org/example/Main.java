@@ -117,12 +117,7 @@ public class Main {
                                     System.out.print(Sub.get(a).posts.get(w));
                             }
                             System.out.print("see post in sub reddit ?  TRUE 0R FALSE ");
-//                            if (scanner.next().equals( "true")) {
-//                                i = scanner.nextInt();
-//                                for (Post p : Sub.get(i - 1).posts) {
-//                                    System.out.println(p.getName() + " ");//TODO --> time and writer
-//                                }
-//                            }
+
                             System.out.print("Add  post  ?  TRUE 0R FALSE ");
                             if (scanner.next().equals( "true")) {
                                 String srt = scanner.next();
