@@ -22,21 +22,7 @@ public class User extends  Account{
     public void SetPost(Post post) {
     this.ownPost.add(post);
     }
-    public void Like(Post post)
-    {
-        int coneter =0;
-        for(Post x:ownPost)
-        {
-            System.out.println(coneter++ +" "+x.getName());
-        }
-        Scanner scanner=new Scanner(System.in);
-        int number =scanner.nextInt();
-        System.out.println("Like or lis like Y / N ");
-        if(scanner.next().equals("Y"))
-            this.ownPost.get(number).setLike();
-        else
-            this.ownPost.get(number).setDis_Like();
-    }
+
 
 
     public void getHour() {
