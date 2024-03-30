@@ -7,8 +7,9 @@ public class Post {
     private int Like;
 
 
-    public Post(){
-
+    private User Owner;
+    public Post(String string){
+        this.Name=string;
 
     }
 
