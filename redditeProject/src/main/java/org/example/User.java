@@ -33,9 +33,9 @@ public class User extends  Account{
         int number =scanner.nextInt();
         System.out.println("Like or lis like Y / N ");
         if(scanner.next().equals("Y"))
-            this.ownPost.get(number).setLike(1);
+            this.ownPost.get(number).setLike();
         else
-            this.ownPost.get(number).setLike(-1);
+            this.ownPost.get(number).setDis_Like();
     }
 
 

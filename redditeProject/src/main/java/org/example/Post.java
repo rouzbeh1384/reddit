@@ -24,11 +24,15 @@ public class Post {
         return this.Name;
     }
 
-    public void setLike(int i)
+    public void setLike()
     {
-        this.Like+=i;
+        this.Like+=1;
     }
 
+    public void setDis_Like()
+    {
+        this.Like-=1;
+    }
     public int  TimeH(){
         return this.HourTime;
     }

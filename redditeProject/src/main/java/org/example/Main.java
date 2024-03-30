@@ -118,51 +118,58 @@ public class Main {
 
 
     }
-    public static void Use_Sub_reddit(User x,ArrayList<SubReddit> Sub){
-        Scanner scanner=new Scanner(System.in);
+    public static void Use_Sub_reddit(User x,ArrayList<SubReddit> Sub) {
+        Scanner scanner = new Scanner(System.in);
+        int a=-1;
+        boolean move = true;
         int id = 0;
         try {
             for (SubReddit c : x.ownSubreddit) {
-                System.out.print(++id + " --- " + c.Name +" |--->  "+c.Show_notify()+"  |-----| "+c.getHourTime()+
-                        " |-----| "+ c.Owner_Addmin.get(0)+ "\n");
+                System.out.print(++id + " --- " + c.Name + " |--->  " + c.Show_notify() + "  |-----| " + c.getHourTime() +
+                        " |-----| " + c.Owner_Addmin.get(0) + "\n");
             }
             System.out.print("you can see post of sub please choose ");
-            int a = scanner.nextInt() - 1;
-            if(!Sub.get(a).posts.isEmpty()) {
+            a = scanner.nextInt() - 1;
+            if (!Sub.get(a).posts.isEmpty()) {
                 for (int w = 0; w < Sub.get(a).posts.size(); w++)
-                    System.out.print(Sub.get(a).posts.get(w).getName()+"\n"
-                            +Sub.get(a).posts.get(w).TimeH()+":"+Sub.get(a).posts.get(w).TimeM()+
-                            "\n"+"By: "+Sub.get(a).posts.get(w).writer()+"\n\n");
+                    System.out.print(Sub.get(a).posts.get(w).getName() + "\n"
+                            + Sub.get(a).posts.get(w).TimeH() + ":" + Sub.get(a).posts.get(w).TimeM() +
+                            "\n" + "By: " + Sub.get(a).posts.get(w).writer() + "\n\n");
             }
-
-            System.out.println("Add  post  ? (pattern y|yes|1|ok post) ");
-//            System.out.println("1- Add post  2- like or dislike 3-show comment 4-add comment   ");
-
-            String str=scanner.next();
-            if (str.equals("yes")||str.equals("y")||str.equals("1")||str.equals("ok")) {
-                String srt;
-                do {
-                     srt= scanner.nextLine();
-                    System.out.println("\n \n are you sure no ?"+ srt);
-                }while (scanner.next().equals("no")||scanner.next().equals("0")||scanner.next().equals("n"));
-
-                Post post = new Post(srt);
-
-                Sub.get(a).Set_post(post);
-
-
-
-
-            }
-
         } catch (Exception e) {
-            System.out.print("no\n");
+            System.out.println("Not Successful ");
+            move = false;
         }
 
+        if (move == true) {
+            System.out.println("Add  post  ? (pattern y|yes|1|ok post) ");
+            System.out.println("1- Add post  2- like or dislike 3-show comment 4-add comment   ");
+            switch (scanner.nextInt()) {
+                case 1: {
+                    try {
+                        String srt;
+
+                        do {
+                            srt = scanner.nextLine();
+                            System.out.println("\n \n are you sure no ?" + srt);
+                        } while (scanner.next().equals("no") || scanner.next().equals("0") || scanner.next().equals("n"));
+
+                        Post post = new Post(srt);
+                        Sub.get(a).Set_post(post);
+                    } catch (Exception e) {
+                        System.out.print("no\n");
+                    }
+                }
+                break;
+                case 2:{
+
+                }break;
+            }
+
+
+        }
+
+
     }
-
-
-
-
 
 }
