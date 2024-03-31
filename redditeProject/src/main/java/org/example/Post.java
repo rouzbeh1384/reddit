@@ -1,6 +1,7 @@
 package org.example;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class Post {
 
@@ -8,15 +9,19 @@ public class Post {
 
     private int Like;
 
-    private int  HourTime;
-    private int MinTime;
+    private final int  HourTime;
+    private final int MinTime;
     private User Owner;
+
+    public ArrayList<Post>comment;
+
+
     public Post(String string){
         this.Name=string;
         LocalTime currentTime = LocalTime.now();
         HourTime= currentTime.getHour();
         MinTime=currentTime.getMinute();
-
+        comment=new ArrayList<>();
     }
 
     public String getName()
@@ -42,6 +47,20 @@ public class Post {
     public String writer(){
         return this.Owner.Get_username();
     }
+    public void  setComment(String string){
+        Post comment=new Post(string);
+        this.comment.add(comment);
+    }
+    public void ShowComment()
+    {
+        int e=1;
+        for (int i=0;i<this.comment.size();i++)
+        {
+            System.out.println((i+1) +"   " +this.comment.get(i).getName() +" |---|  " +this.comment.get(i).TimeH()+" : "+this.comment.get(i).TimeM());
+        }
+    }
+
+
 
 
 }

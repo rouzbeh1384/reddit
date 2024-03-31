@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         ArrayList<User> users = new ArrayList<>();
-        ArrayList<Post> posts = new ArrayList<>();
+
         ArrayList<SubReddit> subReddits = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
@@ -70,7 +70,7 @@ public class Main {
     {
             System.out.println("hi "+x.Get_username());
             while (true) {
-                System.out.println("1-join to subreddit 2- creat sub 3-Show my subreddit 4-21-exit");
+                System.out.println("1-join to subreddit 2- creat sub 3-Show my subreddit 4-see profile   21-exit");
                 Scanner scanner = new Scanner(System.in);
                 int i = 1;
                 int re=scanner.nextInt();
@@ -112,7 +112,9 @@ public class Main {
                         Use_Sub_reddit(x,Sub);
                     }
                     break;
-                }
+                    case 4:
+                        Run_profile(x,Sub);
+                }break;
             }
 
 
@@ -132,7 +134,7 @@ public class Main {
             a = scanner.nextInt() - 1;
             if (!Sub.get(a).posts.isEmpty()) {
                 for (int w = 0; w < Sub.get(a).posts.size(); w++)
-                    System.out.print(Sub.get(a).posts.get(w).getName() + "\n"
+                    System.out.print((w+1)+" "+Sub.get(a).posts.get(w).getName() + "\n"
                             + Sub.get(a).posts.get(w).TimeH() + ":" + Sub.get(a).posts.get(w).TimeM() +
                             "\n" + "By: " + Sub.get(a).posts.get(w).writer() + "\n\n");
             }
@@ -142,17 +144,18 @@ public class Main {
         }
 
         if (move == true) {
-            System.out.println("Add  post  ? (pattern y|yes|1|ok post) ");
-            System.out.println("1- Add post  2- like or dislike 3-show comment 4-add comment   ");
+
+            System.out.println("1- Add post  2- like or dislike 3-Add comment 4-show comment   ");
             switch (scanner.nextInt()) {
                 case 1: {
                     try {
-                        String srt;
+                        String srt,s;
 
                         do {
                             srt = scanner.nextLine();
                             System.out.println("\n \n are you sure no ?" + srt);
-                        } while (scanner.next().equals("no") || scanner.next().equals("0") || scanner.next().equals("n"));
+                            s=scanner.next();
+                        } while (s.equals("no") || s.equals("0") || s.equals("n"));
 
                         Post post = new Post(srt);
                         Sub.get(a).Set_post(post);
@@ -162,8 +165,29 @@ public class Main {
                 }
                 break;
                 case 2:{
-
+                System.out.println("enter number of post like or dislike  ");
+                int number =scanner.nextInt();
+                System.out.println("like 1 dislike 0 ");
+                    if (scanner.nextInt()==1)
+                        Sub.get(a).posts.get(number-1).setLike();
+                    else
+                        Sub.get(a).posts.get(number-1).setDis_Like();
                 }break;
+                case 3:
+                {  System.out.println("enter number of post for add  comment ");
+                    int number =scanner.nextInt();
+                        do {
+                        System.out.println("enter your comment :");
+                        Sub.get(a).posts.get(number).setComment(scanner.nextLine());
+                        System.out.println("Are you sure 1-sure ");
+                    }while (scanner.nextInt()!=1);
+                }break;
+                case 4:{
+                    System.out.println("enter number of post for show comment ");
+                    int number =scanner.nextInt();
+                    Sub.get(a).posts.get(number-1).ShowComment();
+                }break;
+
             }
 
 
@@ -171,5 +195,48 @@ public class Main {
 
 
     }
+
+    public static void Run_profile(User x,ArrayList<SubReddit>Sub){
+
+        ArrayList<Post> posts = new ArrayList<>();
+        posts.clear();
+        for (int i=0;i<Sub.size();i++){
+            posts.add(x.ownSubreddit.get(i).newest());
+        }
+
+        //sort
+        for (int i = 0; i < posts.size() - 1; i++) {
+            for (int j = 0; j < posts.size() - i - 1; j++) {
+
+                if (posts.get(j).TimeH() > posts.get(j + 1).TimeM()) {
+
+                    Post temp = posts.get(j);
+                    posts.set(j, posts.get(j + 1));
+                    posts.set(j + 1, temp);
+                }
+            }
+        }
+
+        System.out.println("|--------------------------------------------------------------------------------|\n" +
+                           "|--------------------------new post in ------------------------------------------|\n" +
+                           "|--------------------------your subreddit ---------------------------------------|\n" +
+                           "|--------------------------that you follow---------------------------------------|");
+        for(int i=0;i<4 && i <posts.size();i++){
+            System.out.println("| "+posts.get(i).getName()+" | " + posts.get(i).writer()+" | "+posts.get(i).TimeH()+"|");
+        }
+        System.out.println("|--------------------------------------------------------------------------------|\n" +
+                           "|--------------------------------------------------------------------------------|");
+
+
+
+
+        System.out.println("1-save post    7-change passWord  8- change email  9-change username 21-exit");
+    }
+
+
+
+
+
+
 
 }

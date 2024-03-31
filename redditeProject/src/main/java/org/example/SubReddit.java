@@ -58,6 +58,12 @@ public class SubReddit extends Account{
             return notify;
         return 0;
     }
+    public Post newest()
+    {
+        return posts.get(posts.size()-1);
+
+    }
+
 
 
 
