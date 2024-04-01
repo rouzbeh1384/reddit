@@ -29,10 +29,10 @@ public class Main {
             int a = scanner.nextInt();
             System.out.print("enter yor email :");
             String emial = scanner.next();
-            System.out.print("enter your pass word ");
+            System.out.print("enter your pass word: ");
             String pass = scanner.next();
             if (a == 1) {
-                System.out.print("enter Username");
+                System.out.print("enter Username: ");
                 User user = new User(scanner.next(), pass, emial);
                 users.add(user);
             } else {
@@ -157,7 +157,7 @@ public class Main {
                             s=scanner.next();
                         } while (s.equals("no") || s.equals("0") || s.equals("n"));
 
-                        Post post = new Post(srt);
+                        Post post = new Post(srt,x);
                         Sub.get(a).Set_post(post);
                     } catch (Exception e) {
                         System.out.print("no\n");
@@ -178,7 +178,8 @@ public class Main {
                     int number =scanner.nextInt();
                         do {
                         System.out.println("enter your comment :");
-                        Sub.get(a).posts.get(number).setComment(scanner.nextLine());
+                        String string=scanner.nextLine();
+                        Sub.get(a).posts.get(number).setComment(string,x);
                         System.out.println("Are you sure 1-sure ");
                     }while (scanner.nextInt()!=1);
                 }break;

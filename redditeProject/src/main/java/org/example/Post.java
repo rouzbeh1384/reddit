@@ -16,12 +16,14 @@ public class Post {
     public ArrayList<Post>comment;
 
 
-    public Post(String string){
+    public Post(String string,User x){
         this.Name=string;
         LocalTime currentTime = LocalTime.now();
         HourTime= currentTime.getHour();
         MinTime=currentTime.getMinute();
         comment=new ArrayList<>();
+        this.Owner=x;
+
     }
 
     public String getName()
@@ -47,8 +49,8 @@ public class Post {
     public String writer(){
         return this.Owner.Get_username();
     }
-    public void  setComment(String string){
-        Post comment=new Post(string);
+    public void  setComment(String string,User x){
+        Post comment=new Post(string,x);
         this.comment.add(comment);
     }
     public void ShowComment()
