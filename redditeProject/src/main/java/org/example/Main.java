@@ -65,7 +65,7 @@ public class Main {
                 else {
                     for (User x:users) {
                         if(x.verifyPassWord(pass)&x.getEmail().equals(email))
-                        runuser(x,subReddits);
+                        runuser(x,subReddits,users);
                     }
 
                 }
@@ -89,60 +89,141 @@ public class Main {
 
 
 
-    public static void   runuser(User x,ArrayList<SubReddit> Sub)
-    {
-            System.out.println("hi "+x.Get_username());
-            int re=0;
-            while (true) {
-                System.out.println("1-join to subreddit 2- creat sub 3-Show my subreddit 4-see profile   21-exit");
-                Scanner scanner = new Scanner(System.in);
-                int i = 1;
-                 re=scanner.nextInt();
-                if (re==21)
-                    break;
+    public static void   runuser(User x,ArrayList<SubReddit> Sub,ArrayList<User> users) {
+        System.out.println("hi " + x.Get_username());
+        int re = 0;
+        while (true) {
+            System.out.println("1-join to subreddit 2- creat sub 3-Show my subreddit 4-see profile 5-communication  6- Subreddit  21-exit");
+            Scanner scanner = new Scanner(System.in);
+            int i = 1;
+            re = scanner.nextInt();
+            if (re == 21)
+                break;
 
-                switch (re) {
-                    case 1: {
-                        if (!Sub.isEmpty()) {
-                            for (SubReddit xSubReddit : Sub) {
+            switch (re) {
+                case 1: {
+                    if (!Sub.isEmpty()) {
+                        for (SubReddit xSubReddit : Sub) {
 
-                                System.out.println(i++ + "-" + xSubReddit.Name);
-                            }
-                            System.out.println("inter Id ");
-                            i=scanner.nextInt();
+                            System.out.println(i++ + "-" + xSubReddit.Name);
+                        }
+                        System.out.println("inter Id ");
+                        i = scanner.nextInt();
 
-                            Sub.get(i-1).joind(x);
-                            x.ownSubreddit.add(Sub.get(i-1));
-                        } else System.out.println("No subreddit");
+                        Sub.get(i - 1).joind(x);
+                        x.ownSubreddit.add(Sub.get(i - 1));
+                    } else System.out.println("No subreddit");
+                }
+                break;
+                case 2: {
+                    System.out.print("enter  name :");
+                    String name = scanner.next();
+                    System.out.print("password: ");
+                    String pass = scanner.next();
+                    try {
+                        SubReddit subReddit = new SubReddit(name, x, pass);
+                        Sub.add(subReddit);
+                        subReddit.setOwner_Addmin(x);
+                        System.out.println("Successful\n\n ");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
-                    break;
-                    case 2: {
-                        System.out.print("enter  name :");
-                        String name = scanner.next();
-                        System.out.print("password: ");
-                        String pass = scanner.next();
-                        try {
-                            SubReddit subReddit = new SubReddit(name, x, pass);
-                            Sub.add(subReddit);
-                            System.out.println("Successful\n\n ");
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                }
+                break;
+                case 3: {
+                    Use_Sub_reddit(x, Sub);
+                }
+                break;
+                case 4: {
+                    Run_profile(x, Sub);
+                }
+                break;
+                case 6: {
+                    if (!Sub.isEmpty()) {
+                        for (SubReddit xSubReddit : Sub) {
+
+                            System.out.println(i++ + "-" + xSubReddit.Name);
+                        }
+                        System.out.println("inter Id ");
+                        i = scanner.nextInt();
+
+                        }
+                    Run_admin(users,Sub.get(i-1) , x);
+
+                }
+                break;
+            }
+
+        }
+
+    }
+    public static void Run_admin(ArrayList<User> users,SubReddit sub,User x){
+
+       Scanner scanner=new Scanner(System.in);
+        System.out.println("1-add admin 2-delete admin 3-delete post 21-exit");
+        int re=scanner.nextInt();
+        while (re!=21)
+        {
+            switch (re){
+                case 1:
+                {
+                    System.out.println("enter user name ");
+                    String u =scanner.next(),pass;
+                    for (User a:users){
+                        if (a.Get_username().equals(u)){
+                            System.out.println("enter passWord od Subreddit");
+                            pass=scanner.next();
+                            if(sub.verifyPassWord(pass)){
+                                sub.setOwner_Addmin(a);
+                            }
+                            break;
                         }
                     }
-                    break;
-                    case 3: {
-                        Use_Sub_reddit(x,Sub);
+
+
+                }break;
+                case 2:{
+                    System.out.println("enter user name ");
+                    String u =scanner.next(),pass;
+                    for (User a:users){
+                        if (a.Get_username().equals(u)){
+                            System.out.println("enter passWord od Subreddit");
+                            pass=scanner.next();
+                            if(sub.verifyPassWord(pass)){
+                                try {
+                                sub.removeAdmin(a);
+                                }catch (Exception e){
+                                    System.out.println("not successful ");
+                                }
+                            }
+                            break;
+                        }
                     }
-                    break;
-                    case 4: {
-                        Run_profile(x, Sub);
-                    }break;
-                }
+                }break;
+                case 3: {
+                    for (int i=0;i<sub.posts.size();i++) {
+                        System.out.println((i + 1) + " " + sub.posts.get(i).getName() + "  ");
+                    }
+                    System.out.println("Id for remove ");
+                        int number =scanner.nextInt();
+                        try {
+                            sub.posts.remove(number - 1);
+                        }catch (Exception e){
+                            System.out.println("Not successful");
+                        }
+                }break;
             }
+        }
+
 
 
 
     }
+
+
+
+
+
     public static void Use_Sub_reddit(User x,ArrayList<SubReddit> Sub) {
         Scanner scanner = new Scanner(System.in);
         int a=-1;
@@ -221,7 +302,11 @@ public class Main {
                     break;
                     case 5:{
                         int number =scanner.nextInt();
-                        x.setSava_post(Sub.get(a).posts.get(number-1));
+                        try {
+                            x.setSava_post(Sub.get(a).posts.get(number - 1));
+                        }catch (Exception e){
+                            System.out.println("Not successful");
+                        }
                     }break;
                     case 6: {
                         Use_Sub_reddit(x, Sub);
@@ -285,12 +370,10 @@ public class Main {
                     if (!posts.isEmpty())
                     for (Post xPost:posts){
                         System.out.println("|--------------------------------------------------------------------------------|\n" +
-                                "|--------------------------new post in ------------------------------------------|\n" +
-                                "|--------------------------your subreddit ---------------------------------------|\n" +
-                                "|--------------------------that you follow---------------------------------------|");
-                        for(int i=0;i<6 && i <posts.size();i++){
-                            System.out.println("| "+xPost.getName()+" | " + xPost.writer()+" | "+xPost.TimeH()+"|");
-                        }
+                                "|--------------------------your save--------------------------------------------|\n" +
+                                "|---------------------------post------------------------------------------------|\n" +
+                                "|-------------------------------------------------------------------------------|");
+                        System.out.println("| "+xPost.getName()+" | " +"By :"+ xPost.writer()+" | "+" "+xPost.TimeH()+":"+xPost.TimeM()+"|");
                         System.out.println("|--------------------------------------------------------------------------------|\n" +
                                            "|--------------------------------------------------------------------------------|");
 
@@ -326,6 +409,8 @@ public class Main {
                 }break;
 
             }
+            System.out.println("1-Show sava post   7-change passWord  8- change email  9-change username 21-exit");
+            number=scanner.nextInt();
         }
 
 
@@ -339,12 +424,13 @@ public class Main {
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
-        if (matcher.find()) {
-            return true;
-        }
-        else{
-            return false;
-        }
+//        if (matcher.find()) {
+//            return true;
+//        }
+//        else{
+//            return false;
+//        }
+        return true;
 
     }
     public static int  check_uniqe_Username (String user,ArrayList<User> x){

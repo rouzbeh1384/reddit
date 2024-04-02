@@ -37,14 +37,17 @@ public class SubReddit extends Account{
         System.out.print("enter password :");
         Scanner scanner=new Scanner(System.in);
         if(verifyPassWord(scanner.next())){
-            System.out.print("enter email of account ");
+            System.out.print("enter username  of account ");
             for (User x:users){
-                if (x.getEmail().equals(scanner.next())){
+                if (x.Get_username().equals(scanner.next())){
                     Owner_Addmin.add(x);
                     break;
                 }
             }
         }
+    }
+    public void setOwner_Addmin(User user){
+        Owner_Addmin.add(user);
     }
 
     public void Set_post(Post post)
@@ -63,6 +66,10 @@ public class SubReddit extends Account{
         return posts.get(posts.size()-1);
 
     }
+    public void removeAdmin (User u){
+        Owner_Addmin.remove(u);
+    }
+
 
 
 

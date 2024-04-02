@@ -7,17 +7,25 @@ import java.util.Scanner;
 public class User extends  Account{
     public ArrayList<Post>ownPost;
 
+
+    public ArrayList<Post>massage;
+
+
     public ArrayList<SubReddit> ownSubreddit;
 
     private ArrayList<Post>Sava_post;
     private String userName;
 
+    public ArrayList<User>Friend;
 
     public User(String User,String PassWord,String Email) {
         super(PassWord,Email);
         this.userName=User;
         ownSubreddit=new ArrayList<>();
         ownPost=new ArrayList<>();
+        Friend=new ArrayList<>();
+        massage=new ArrayList<>();
+        Sava_post=new ArrayList<>();
     }
 
     public void SetPost(Post post) {
@@ -51,6 +59,15 @@ public class User extends  Account{
             this.userName=newUser;
         }
     }
+
+    public void setFriend(User user){
+        this.Friend.add(user);
+    }
+    public void setMassage(Post post){
+        this.massage.add(post);
+    }
+
+
 
 
 
