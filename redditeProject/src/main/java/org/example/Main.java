@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.System.exit;
 
@@ -29,22 +31,40 @@ public class Main {
 
             System.out.print("1-create Account 2-enter 3-exit : ");
             int a = scanner.nextInt();
-            if (a==3)
+            if (a == 3)
                 exit(0);
 
+
             System.out.print("enter yor email :");
-            String emial = scanner.next();
+            String email = "";
+            email = scanner.next();
+            while (!check_pattenr_email(email) ){
+                System.out.print("enter yor email : (with this patten ----@----.---)exit 0");
+                 email = scanner.next();
+                 if (email.equals("0")){
+                     exit(Integer.parseInt(email));
+                 }
+            }
+
+
+
             System.out.print("enter your pass word: ");
             String pass = scanner.next();
-            if (a == 1) {
+
+            if (a == 1  ) {
                 System.out.print("enter Username: ");
-                User user = new User(scanner.next(), pass, emial);
+                String usename =scanner.next();
+                while (check_uniqe_Username(usename,users)!=0) {
+                System.out.println("you user name has been used"+"|----|my suggest : " +(usename+String.valueOf(check_uniqe_Username(usename,users))));
+                usename=scanner.next();
+                }
+                User user = new User(usename, pass, email);
                 users.add(user);
             } else {
                 if (users.isEmpty()) {System.out.print("No account \n\n");}
                 else {
                     for (User x:users) {
-                        if(x.verifyPassWord(pass)&x.getEmail().equals(emial))
+                        if(x.verifyPassWord(pass)&x.getEmail().equals(email))
                         runuser(x,subReddits);
                     }
 
@@ -199,10 +219,15 @@ public class Main {
                         Sub.get(a).posts.get(number - 1).ShowComment();
                     }
                     break;
+                    case 5:{
+                        int number =scanner.nextInt();
+                        x.setSava_post(Sub.get(a).posts.get(number-1));
+                    }break;
                     case 6: {
                         Use_Sub_reddit(x, Sub);
 
-                    }
+                    }break;
+
                     case 21:
                     {
                         b=true;
@@ -250,7 +275,7 @@ public class Main {
 
 
 
-        System.out.println("1-Show sava post 2-  7-change passWord  8- change email  9-change username 21-exit");
+        System.out.println("1-Show sava post   7-change passWord  8- change email  9-change username 21-exit");
         Scanner scanner=new Scanner(System.in);
         int number=scanner.nextInt();
         while (number!=21){
@@ -259,7 +284,16 @@ public class Main {
                     posts=x.getPost();
                     if (!posts.isEmpty())
                     for (Post xPost:posts){
-                        System.out.println(xPost.getName()+"  "+xPost.TimeH()+":"+xPost.TimeM()+" "+xPost.writer());
+                        System.out.println("|--------------------------------------------------------------------------------|\n" +
+                                "|--------------------------new post in ------------------------------------------|\n" +
+                                "|--------------------------your subreddit ---------------------------------------|\n" +
+                                "|--------------------------that you follow---------------------------------------|");
+                        for(int i=0;i<6 && i <posts.size();i++){
+                            System.out.println("| "+xPost.getName()+" | " + xPost.writer()+" | "+xPost.TimeH()+"|");
+                        }
+                        System.out.println("|--------------------------------------------------------------------------------|\n" +
+                                           "|--------------------------------------------------------------------------------|");
+
                     }
                     else  {
                         System.out.println("NO post saved");
@@ -278,7 +312,10 @@ public class Main {
                     String pass=scanner.next();
                     System.out.print("enter new email ");
                     String email=scanner.next();
-                    x.changeEmail(pass,email);
+                    if (check_pattenr_email(email))
+                        x.changeEmail(pass,email);
+                    else
+                        System.out.println("your email not correct");
                 }break;
                 case 9:{
                     System.out.println("enter passWord ");
@@ -294,6 +331,33 @@ public class Main {
 
 
 
+    }
+
+    public static Boolean check_pattenr_email(String email){
+
+        String regex = "\\w*@\\w*\\.\\w{1,4}\\b";  // TODO
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        if (matcher.find()) {
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+    public static int  check_uniqe_Username (String user,ArrayList<User> x){
+        int conert=0;
+        if (x.isEmpty())
+        return 0;
+        else {
+            for (int i=0;i<x.size();i++){
+                if (x.get(i).Get_username().equals(user))
+                    conert++;
+            }
+            return conert;
+        }
     }
 
 
