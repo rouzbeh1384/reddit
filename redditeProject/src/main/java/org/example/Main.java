@@ -129,7 +129,7 @@ public class Main {
         try {
             for (SubReddit c : x.ownSubreddit) {
                 System.out.print(++id + " --- " + c.Name + " |--->  " + c.Show_notify() + "  |-----| " + c.getHourTime() +
-                        " |-----| " + c.Owner_Addmin.get(0) + "\n");
+                        " |-----| " + c.Owner_Addmin.get(0).Get_username() + "\n");
             }
             System.out.print("you can see post of sub please choose ");
             a = scanner.nextInt() - 1;
