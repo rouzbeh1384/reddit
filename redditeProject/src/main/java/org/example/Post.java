@@ -8,6 +8,8 @@ public class Post {
     private String Name;
 
     private int Like;
+    private int dis_Like;
+
 
     private final int  HourTime;
     private final int MinTime;
@@ -38,7 +40,7 @@ public class Post {
 
     public void setDis_Like()
     {
-        this.Like-=1;
+        this.dis_Like-=1;
     }
     public int  TimeH(){
         return this.HourTime;
@@ -61,8 +63,12 @@ public class Post {
             System.out.println((i+1) +"   " +this.comment.get(i).getName() +" |---|  " +this.comment.get(i).TimeH()+" : "+this.comment.get(i).TimeM());
         }
     }
-
-
+    public String ShowLike(){
+        return String.valueOf(Like);
+    }
+    public String ShowDisLike(){
+        return String.valueOf(this.dis_Like);
+    }
 
 
 }

@@ -69,11 +69,12 @@ public class Main {
     public static void   runuser(User x,ArrayList<SubReddit> Sub)
     {
             System.out.println("hi "+x.Get_username());
-            while (true) {
+            int re=0;
+            while (re!=21) {
                 System.out.println("1-join to subreddit 2- creat sub 3-Show my subreddit 4-see profile   21-exit");
                 Scanner scanner = new Scanner(System.in);
                 int i = 1;
-                int re=scanner.nextInt();
+                 re=scanner.nextInt();
                 if (re==21)
                     break;
 
@@ -134,7 +135,8 @@ public class Main {
             a = scanner.nextInt() - 1;
             if (!Sub.get(a).posts.isEmpty()) {
                 for (int w = 0; w < Sub.get(a).posts.size(); w++)
-                    System.out.print((w+1)+" "+Sub.get(a).posts.get(w).getName() + "\n"
+                    System.out.print((w+1)+" "+Sub.get(a).posts.get(w).getName() +" |\n" +
+                            "| "+" \uD83D\uDE0A :"+Sub.get(a).posts.get(w).ShowLike()+"\t"+"  \uD83D\uDE12 :"+ Sub.get(a).posts.get(w).ShowDisLike()+"\n"
                             + Sub.get(a).posts.get(w).TimeH() + ":" + Sub.get(a).posts.get(w).TimeM() +
                             "\n" + "By: " + Sub.get(a).posts.get(w).writer() + "\n\n");
             }
@@ -145,52 +147,66 @@ public class Main {
 
         if (move == true) {
 
-            System.out.println("1- Add post  2- like or dislike 3-Add comment 4-show comment   ");
-            switch (scanner.nextInt()) {
-                case 1: {
-                    try {
-                        String srt,s;
+        boolean b=false;
+            while (b==false) {
+                System.out.println("1- Add post  2- like or dislike 3-Add comment 4-show comment 5-NO   21-exit   ");
+                switch (scanner.nextInt()) {
+                    case 1: {
+                        try {
+                            String srt, s;
 
-                        do {
-                            srt = scanner.nextLine();
-                            System.out.println("\n \n are you sure no ?" + srt);
-                            s=scanner.next();
-                        } while (s.equals("no") || s.equals("0") || s.equals("n"));
+                            do {
+                                srt = scanner.nextLine();
+                                System.out.println("\n \n are you sure no ?" + srt);
+                                s = scanner.next();
+                            } while (s.equals("no") || s.equals("0") || s.equals("n"));
 
-                        Post post = new Post(srt,x);
-                        Sub.get(a).Set_post(post);
-                    } catch (Exception e) {
-                        System.out.print("no\n");
+                            Post post = new Post(srt, x);
+                            Sub.get(a).Set_post(post);
+                        } catch (Exception e) {
+                            System.out.print("no\n");
+                        }
                     }
-                }
-                break;
-                case 2:{
-                System.out.println("enter number of post like or dislike  ");
-                int number =scanner.nextInt();
-                System.out.println("like 1 dislike 0 ");
-                    if (scanner.nextInt()==1)
-                        Sub.get(a).posts.get(number-1).setLike();
-                    else
-                        Sub.get(a).posts.get(number-1).setDis_Like();
-                }break;
-                case 3:
-                {  System.out.println("enter number of post for add  comment ");
-                    int number =scanner.nextInt();
+                    break;
+                    case 2: {
+                        System.out.println("enter number of post like or dislike  ");
+                        int number = scanner.nextInt();
+                        System.out.println("like 1 dislike 0 ");
+                        if (scanner.nextInt() == 1)
+                            Sub.get(a).posts.get(number - 1).setLike();
+                        else
+                            Sub.get(a).posts.get(number - 1).setDis_Like();
+                    }
+                    break;
+                    case 3: {
+                        System.out.println("enter number of post for add  comment ");
+                        int number = scanner.nextInt();
                         do {
-                        System.out.println("enter your comment :");
-                        String string=scanner.nextLine();
-                        Sub.get(a).posts.get(number).setComment(string,x);
-                        System.out.println("Are you sure 1-sure ");
-                    }while (scanner.nextInt()!=1);
-                }break;
-                case 4:{
-                    System.out.println("enter number of post for show comment ");
-                    int number =scanner.nextInt();
-                    Sub.get(a).posts.get(number-1).ShowComment();
-                }break;
+                            System.out.println("enter your comment :");
+                            String string = scanner.nextLine();
+                            Sub.get(a).posts.get(number-1).setComment(string, x);
+                            System.out.println("Are you sure 1-sure ");
+                        } while (scanner.nextInt() != 1);
+                    }
+                    break;
+                    case 4: {
+                        System.out.println("enter number of post for show comment ");
+                        int number = scanner.nextInt();
+                        Sub.get(a).posts.get(number - 1).ShowComment();
+                    }
+                    break;
+                    case 5: {
+                        Use_Sub_reddit(x, Sub);
 
+                    }
+                    case 21:
+                    {
+                        b=true;
+                    }break;
+
+
+                }
             }
-
 
         }
 
@@ -227,7 +243,6 @@ public class Main {
         }
         System.out.println("|--------------------------------------------------------------------------------|\n" +
                            "|--------------------------------------------------------------------------------|");
-
 
 
 
