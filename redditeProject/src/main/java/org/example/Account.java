@@ -65,4 +65,9 @@ public class Account {
     {
         return this.Email;
     }
+    public void changeEmail(String passWord,String email){
+        if (this.verifyPassWord(passWord)){
+            this.Email=email;
+        }
+    }
 }

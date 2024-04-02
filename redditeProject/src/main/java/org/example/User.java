@@ -9,6 +9,7 @@ public class User extends  Account{
 
     public ArrayList<SubReddit> ownSubreddit;
 
+    private ArrayList<Post>Sava_post;
     private String userName;
 
 
@@ -34,9 +35,25 @@ public class User extends  Account{
 
         }
     }
-
+    public ArrayList<Post> getPost(){
+        return Sava_post;
+    }
+    public void setSava_post(Post  post){
+        Sava_post.add(post);
+    }
 
     public String Get_username(){
         return this.userName;
     }
+
+    public void changeUsername (String pass ,String newUser){
+        if(this.verifyPassWord(pass)){
+            this.userName=newUser;
+        }
+    }
+
+
+
+
+
 }

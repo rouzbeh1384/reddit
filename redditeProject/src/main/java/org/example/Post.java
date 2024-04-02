@@ -18,6 +18,7 @@ public class Post {
     public ArrayList<Post>comment;
 
 
+
     public Post(String string,User x){
         this.Name=string;
         LocalTime currentTime = LocalTime.now();
@@ -25,6 +26,7 @@ public class Post {
         MinTime=currentTime.getMinute();
         comment=new ArrayList<>();
         this.Owner=x;
+
 
     }
 
@@ -60,7 +62,7 @@ public class Post {
         int e=1;
         for (int i=0;i<this.comment.size();i++)
         {
-            System.out.println((i+1) +"   " +this.comment.get(i).getName() +" |---|  " +this.comment.get(i).TimeH()+" : "+this.comment.get(i).TimeM());
+            System.out.println((i+1) +"   " +this.comment.get(i).getName() +" |---|  " +this.comment.get(i).TimeH()+" : "+this.comment.get(i).TimeM()+"  "+"\u270D  "+this.comment.get(i).Owner.Get_username());
         }
     }
     public String ShowLike(){
