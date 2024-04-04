@@ -10,6 +10,7 @@ public class Post {
     private int Like;
     private int dis_Like;
 
+    public String title;
 
     private final int  HourTime;
     private final int MinTime;
@@ -26,6 +27,17 @@ public class Post {
         MinTime=currentTime.getMinute();
         comment=new ArrayList<>();
         this.Owner=x;
+
+
+    }
+    public Post(String string,User x,String title){
+        this.Name=string;
+        LocalTime currentTime = LocalTime.now();
+        HourTime= currentTime.getHour();
+        MinTime=currentTime.getMinute();
+        comment=new ArrayList<>();
+        this.Owner=x;
+        this.title=title;
 
 
     }

@@ -336,15 +336,19 @@ public class Main {
                 switch (scanner.nextInt()) {
                     case 1: {
                         try {
-                            String srt, s;
+                            String srt, s,str;
+
 
                             do {
+                                System.out.println("enter your title of post");
                                 srt = scanner.nextLine();
-                                System.out.println("\n \n are you sure no ?" + srt);
+                                System.out.println("enter you post");
+                                str= scanner.nextLine();
+                                System.out.println("\n \n are you sure?or no ?" + srt);
                                 s = scanner.next();
                             } while (s.equals("no") || s.equals("0") || s.equals("n"));
 
-                            Post post = new Post(srt, x);
+                            Post post = new Post(srt, x,str);
                             Sub.get(a).Set_post(post);
                         } catch (Exception e) {
                             System.out.print("no\n");
@@ -430,8 +434,8 @@ public class Main {
 
     public static void Run_profile(User x,ArrayList<SubReddit>Sub){
         ArrayList<Post> posts;
-        try {
         posts= new ArrayList<>();
+        try {
         posts.clear();
         for (int i=0;i<Sub.size();i++){
             posts.add(x.ownSubreddit.get(i).newest());
