@@ -69,8 +69,13 @@ public class SubReddit extends Account{
     public void removeAdmin (User u){
         Owner_Addmin.remove(u);
     }
+    public String getName(){
+        return Name;
+    }
+    public String getTime(){
 
-
+        return getHourTime()+":"+getMinTime();
+    }
 
 
 
