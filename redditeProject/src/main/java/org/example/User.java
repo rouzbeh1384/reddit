@@ -10,8 +10,9 @@ public class User extends  Account{
 
     public ArrayList<Post>massage;
 
-    private int maassage=0;
+    public ArrayList<chat>chats;
     public ArrayList<SubReddit> ownSubreddit;
+
 
     public ArrayList<Post>action_post;
     private ArrayList<Post>Sava_post;
@@ -27,6 +28,7 @@ public class User extends  Account{
         Friend=new ArrayList<>();
         massage=new ArrayList<>();
         Sava_post=new ArrayList<>();
+        this.chats=new ArrayList<>();
     }
 
     public void SetPost(Post post) {

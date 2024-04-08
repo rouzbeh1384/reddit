@@ -173,22 +173,46 @@ public class Main {
                 break;
                 case 5:
                 {
-                    System.out.println("1- compose 2-box "+x.);
-                    boolean find=false;
-                    int number =0;
-
-                    System.out.println("enter UserName ");
-                    String traget= scanner.next();
-                    for ( number=0;i<users.size();number ++){
-                        if (users.get(number-1).verifyUsername(traget))
-                        {
-                            find=true;
+                    while (true) {
+                        System.out.println("1-chat 2- start chat 3-exit ");
+                        int result =scanner.nextInt();
+                        if (result==3)
                             break;
+                        if (result==1) {
+                            for (int n = 0; n < x.chats.size(); n++) {
+                                if(x.chats.get(n).user1.equals(x))
+                                    System.out.println((n + 1) + " |----| \uD83D\uDDEA: "+x.chats.get(n).user2.Get_username());
+                                else
+                                    System.out.println((n + 1) + " |----| \uD83D\uDDEA: "+x.chats.get(n).user1.Get_username());
+                            }
+                            System.out.println("inter your number chat ");
+                                private_chat(x,x.chats.get(scanner.nextInt()-1));
+
                         }
+                        else if (result==2) {
+                            boolean find = false;
+                            int number = 0;
+
+                            System.out.println("enter UserName ");
+                            String traget = scanner.next();
+                            for (number = 0; i < users.size(); number++) {
+                                if (users.get(number).verifyUsername(traget)) {
+                                    find = true;
+                                    break;
+                                }
+                            }
+                            if (find) {
+                                    chat chat=new chat(x,users.get(number));
+                                    x.chats.add(chat);
+                                    users.get(number).chats.add(chat);
+                                    private_chat(x,chat);
+                            } else
+                                System.out.println("no user find ");
+                        }
+
+
                     }
-                    if (find){
-                        System.out.println("1- massage 2-");
-                    }
+
 
                 }break;
                 case 6: {
@@ -209,6 +233,45 @@ public class Main {
 
         }
 
+    }
+
+    private static void private_chat(User x,chat y) {
+        Scanner scanner=new Scanner(System.in);
+        boolean b=true;
+        while (b) {
+            y.ShowMassage();
+            System.out.println("|______________________________________________|");
+            System.out.println("1-add massage 2- reply 3-delete 5-exit");
+            int re=scanner.nextInt();
+            if (re==21)
+                b=false;
+            else {
+                switch (re){
+                    case 1:
+                    {
+                        String str="";
+                        String string="";
+                        while (true){
+                            str=scanner.next();
+                            if (!str.equals("~"))
+                                string+=" "+str;
+                            else
+                                break;
+                        }
+                        y.massage(string,x);
+                    }break;
+                    case 2:{
+                        y.reply(x);
+                    }break;
+                    case 3:
+                    {
+                        y.delete(x);
+                    }break;
+
+
+                }
+            }
+        }
     }
 
     private static String can_check(SubReddit xSubReddit ,User x) {

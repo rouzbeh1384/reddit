@@ -66,12 +66,11 @@ public class Post {
     public String writer(){
         return this.Owner.Get_username();
     }
-    public void  setComment(String string,User x){
+    public void  setComment(String string, User x){
         Post comment=new Post(string,x);
         this.comment.add(comment);
     }
-    public void ShowComment()
-    {
+    public void ShowComment() {
         int e=1;
         for (int i=0;i<this.comment.size();i++)
         {

@@ -37,6 +37,12 @@ public class Account {
         MinTime=currentTime.getMinute();
 
     }
+    public Account(){
+        uuid= UUID.randomUUID();
+        LocalTime currentTime = LocalTime.now();
+        HourTime= currentTime.getHour();
+        MinTime=currentTime.getMinute();
+    }
 
    public boolean verifyPassWord(String passWord) {
        return this.passWord.equals(passWord);
