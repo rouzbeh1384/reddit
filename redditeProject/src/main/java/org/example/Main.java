@@ -171,6 +171,26 @@ public class Main {
                     Run_profile(x, Sub);
                 }
                 break;
+                case 5:
+                {
+                    System.out.println("1- compose 2-box "+x.);
+                    boolean find=false;
+                    int number =0;
+
+                    System.out.println("enter UserName ");
+                    String traget= scanner.next();
+                    for ( number=0;i<users.size();number ++){
+                        if (users.get(number-1).verifyUsername(traget))
+                        {
+                            find=true;
+                            break;
+                        }
+                    }
+                    if (find){
+                        System.out.println("1- massage 2-");
+                    }
+
+                }break;
                 case 6: {
                     if (!x.ownSubreddit.isEmpty() ) {
                         for (SubReddit xSubReddit : x.ownSubreddit) {
@@ -281,6 +301,7 @@ public class Main {
                         int number =scanner.nextInt();
                         try {
                             sub.posts.remove(number - 1);
+                            sub.notify--;
                         }catch (Exception e){
                             System.out.println("Not successful");
                         }
@@ -336,19 +357,21 @@ public class Main {
                 switch (scanner.nextInt()) {
                     case 1: {
                         try {
-                            String srt, s,str;
-
-
+                            String srt, s,str="0";
                             do {
                                 System.out.println("enter your title of post");
-                                srt = scanner.nextLine();
-                                System.out.println("enter you post");
-                                str= scanner.nextLine();
-                                System.out.println("\n \n are you sure?or no ?" + srt);
+                                srt = scanner.next();
+                                Sub.get(a).setTitel(srt);
+
+                                System.out.print("enter you post: ");
+
+                                str=scanner.nextLine();
+
+                                System.out.println("Title: "+ Sub.get(a).getTitel()+"\nPost: "+str+"\n\nare you sure? if  " ) ;
                                 s = scanner.next();
                             } while (s.equals("no") || s.equals("0") || s.equals("n"));
 
-                            Post post = new Post(srt, x,str);
+                            Post post = new Post(str, x,str);
                             Sub.get(a).Set_post(post);
                         } catch (Exception e) {
                             System.out.print("no\n");

@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class SubReddit extends Account{
 
+    private  String Titel;
     ArrayList<Post> posts;
 
     ArrayList<User> users;
@@ -76,6 +77,11 @@ public class SubReddit extends Account{
 
         return getHourTime()+":"+getMinTime();
     }
+    public void setTitel(String titel){
+        this.Titel=titel;
+    }
+
+    public String getTitel(){ return this.Titel;}
 
 
 

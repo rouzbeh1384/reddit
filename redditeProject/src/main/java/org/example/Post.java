@@ -18,7 +18,8 @@ public class Post {
 
     public ArrayList<Post>comment;
 
-
+    public ArrayList<User>like;
+    public ArrayList<User> dis_like;
 
     public Post(String string,User x){
         this.Name=string;

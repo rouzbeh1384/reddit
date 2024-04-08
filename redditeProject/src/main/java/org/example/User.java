@@ -10,9 +10,10 @@ public class User extends  Account{
 
     public ArrayList<Post>massage;
 
-
+    private int maassage=0;
     public ArrayList<SubReddit> ownSubreddit;
 
+    public ArrayList<Post>action_post;
     private ArrayList<Post>Sava_post;
     private String userName;
 
@@ -68,6 +69,11 @@ public class User extends  Account{
     }
 
 
+    public boolean verifyUsername(String user){
+        if (user.equals(this.userName))return true;
+
+        return false;
+    }
 
 
 
