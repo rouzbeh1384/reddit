@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 
 import static java.lang.System.exit;
 import static java.lang.System.mapLibraryName;
-
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -216,6 +215,9 @@ public class Main {
 
                 }break;
                 case 6: {
+                    try {
+
+
                     if (!x.ownSubreddit.isEmpty() ) {
                         for (SubReddit xSubReddit : x.ownSubreddit) {
 
@@ -227,7 +229,11 @@ public class Main {
                         }
                     Run_admin(users,Sub.get(i-1) , x);
 
+                }catch (Exception e){
+                        System.out.println("not successfully");
+                    }
                 }
+
                 break;
             }
 
