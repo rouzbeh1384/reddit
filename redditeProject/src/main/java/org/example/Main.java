@@ -437,17 +437,21 @@ public class Main {
                 switch (scanner.nextInt()) {
                     case 1: {
                         try {
-                            String srt, s,str="0";
+                            String srt, s,str="";
                             do {
                                 System.out.println("enter your title of post");
                                 srt = scanner.next();
                                 Sub.get(a).setTitel(srt);
 
-                                System.out.print("enter you post: ");
-
-                                str=scanner.nextLine();
-
-                                System.out.println("Title: "+ Sub.get(a).getTitel()+"\nPost: "+str+"\n\nare you sure? if  " ) ;
+                                System.out.print("enter you post: (at the end inter ~ and space )\n");
+                                srt=scanner.next();
+                                while (!srt.equals("~"))
+                                {
+                                    str+=" "+srt;
+                                    srt=scanner.next();
+                                }
+                               str= checkMassaage(str.toLowerCase(),x,"israel","war");
+                                System.out.println("Title: "+ Sub.get(a).getTitel()+"\nPost: "+str+"\n\nare you sure?   " ) ;
                                 s = scanner.next();
                             } while (s.equals("no") || s.equals("0") || s.equals("n"));
 
@@ -471,13 +475,15 @@ public class Main {
                     case 3: {
                         System.out.println("enter number of post for add  comment ");
                         int number = scanner.nextInt();
-                        String string ;
-                        do {
-                            System.out.println("enter your comment :");
-                            string= scanner.nextLine();
-//                            Sub.get(a).posts.get(number-1).setComment(string, x);
-                            System.out.println("Are you sure 1-sure ");
-                        } while (scanner.nextInt() != 1);
+                        String string="",s="" ;
+                        while (string.equals("~"))
+                        {
+                            string=scanner.next();
+                            s=string+ " "+string;
+
+                        }
+                        s=checkMassaage(s.toLowerCase(),x,"israel","war");
+
                         Sub.get(a).posts.get(number-1).setComment(string, x);
                     }
                     break;
@@ -550,9 +556,9 @@ public class Main {
         //sort
         try {
         for (int i = 0; i < posts.size() ; i++) {
-            for (int j = 0; j < posts.size() - i ; j++) {
+            for (int j = 0; j < posts.size() - i-1 ; j++) {
 
-                if (posts.get(j).TimeH() > posts.get(j + 1).TimeM()) {
+                if (posts.get(j).TimeM() >= posts.get(j + 1).TimeM()) {
 
                     Post temp = posts.get(j);
                     posts.set(j, posts.get(j + 1));
@@ -566,17 +572,19 @@ public class Main {
                     "|--------------------------your subreddit ---------------------------------------|\n" +
                     "|--------------------------that you follow---------------------------------------|");
             for (int i = 0; i < 4 && i < posts.size(); i++) {
-                System.out.println("| " + posts.get(i).getName() + " | " + posts.get(i).writer() + " | " + posts.get(i).TimeH() + "|");
+                System.out.println("| " + posts.get(i).title + " | " + posts.get(i).writer() + " | " + posts.get(i).TimeH() + "|");
             }
             System.out.println("|--------------------------------------------------------------------------------|\n" +
-                    "|--------------------------------------------------------------------------------|");
+                    "|--------------------------------------------------------------------------------|"+
+                    "if you want see post inter number ");
+
         }
         }catch (Exception e){
             System.out.println("in sorting ");
         }
 
 
-        System.out.println("1-Show sava post   7-change passWord  8- change email  9-change username 21-exit");
+        System.out.println("1-Show sava post 2-see the newest post   7-change passWord  8- change email  9-change username 21-exit");
         Scanner scanner=new Scanner(System.in);
         int number=scanner.nextInt();
         while (number!=21){
@@ -599,6 +607,13 @@ public class Main {
                     }
                 }
                 break;
+                case 2:
+                {
+                    System.out.println("Title :|" + posts.get(0).title + " |\nPost :|"
+                            +posts.get(0).getName()+"|\n"
+                            + posts.get(0).writer() + " | " + posts.get(0).TimeH() + "|");
+
+                }
                 case 7:{
                     System.out.print("enter passWord : ");
                     String passWordlast= scanner.next();
@@ -663,7 +678,16 @@ public class Main {
     }
 
 
+    private static String  checkMassaage(String massage,User x,String ...wordsToCensor){
+        String string=massage;
+        for (String word : wordsToCensor) {
+            massage = massage.replace(word,"*".repeat(word.length()));
+        }
+        if(!string.equals(massage))
+            x.setKarma(5);
 
+        return massage;
+    }
 
 
 

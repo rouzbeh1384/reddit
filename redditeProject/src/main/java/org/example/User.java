@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class User extends  Account{
     public ArrayList<Post>ownPost;
 
-
+    public int karma=0;
     public ArrayList<Post>massage;
 
     public ArrayList<chat>chats;
@@ -76,7 +76,9 @@ public class User extends  Account{
 
         return false;
     }
-
+    public void setKarma(int karma){
+        this.karma=this.karma-karma;
+    }
 
 
 

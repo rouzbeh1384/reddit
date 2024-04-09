@@ -7,6 +7,8 @@ public class Post {
 
     private String Name;
 
+
+
     private int Like;
     private int dis_Like;
 
@@ -83,6 +85,7 @@ public class Post {
     public String ShowDisLike(){
         return String.valueOf(this.dis_Like);
     }
+
 
 
 }
