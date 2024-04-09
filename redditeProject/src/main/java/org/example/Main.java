@@ -178,6 +178,7 @@ public class Main {
                         if (result==3)
                             break;
                         if (result==1) {
+                            if (!x.chats.isEmpty()){
                             for (int n = 0; n < x.chats.size(); n++) {
                                 if(x.chats.get(n).user1.equals(x))
                                     System.out.println((n + 1) + " |----| \uD83D\uDDEA: "+x.chats.get(n).user2.Get_username());
@@ -186,6 +187,7 @@ public class Main {
                             }
                             System.out.println("inter your number chat ");
                                 private_chat(x,x.chats.get(scanner.nextInt()-1));
+                            } else System.out.println("No char yet");
 
                         }
                         else if (result==2) {
@@ -201,10 +203,19 @@ public class Main {
                                 }
                             }
                             if (find) {
+                                for (chat chat:users.get(number).chats){
+                                    if(chat.user2.equals(x)||chat.user1.equals(x)) {
+                                        find = false;
+                                        break;
+                                    }
+                                }
+                                if(find){
                                     chat chat=new chat(x,users.get(number));
                                     x.chats.add(chat);
                                     users.get(number).chats.add(chat);
                                     private_chat(x,chat);
+                                }
+                                else System.out.println("you have chat ");
                             } else
                                 System.out.println("no user find ");
                         }
@@ -247,7 +258,7 @@ public class Main {
         while (b) {
             y.ShowMassage();
             System.out.println("|______________________________________________|");
-            System.out.println("1-add massage 2- reply 3-delete 5-exit");
+            System.out.println("1-sent massage  2- reply massage  3-delete  21-exit");
             int re=scanner.nextInt();
             if (re==21)
                 b=false;
