@@ -29,7 +29,7 @@ public class Main {
         while (true) {
 
 
-            System.out.print("1-create Account 2-enter 3-exit : ");
+            System.out.print("1-create Account \n2-enter \n3-exit \n: ");
             int a = scanner.nextInt();
             if (a == 3)
                 exit(0);
@@ -93,7 +93,7 @@ public class Main {
         System.out.println("hi " + x.Get_username());
         int re = 0;
         while (true) {
-            System.out.println("1-join to subreddit 2- creat sub 3-Show my subreddit 4-see profile 5-communication  6- Subreddit  21-exit");
+            System.out.println("1-join to subreddit \n2-creat sub  \n3-Show my subreddit \n4-see profile \n5-communication  \n6-Subreddit  \n21-exit");
             Scanner scanner = new Scanner(System.in);
             int i = 1;
             re = scanner.nextInt();
@@ -173,7 +173,7 @@ public class Main {
                 case 5:
                 {
                     while (true) {
-                        System.out.println("1-chat 2- start chat 3-exit ");
+                        System.out.println("1-chat      2-start chat        3-exit ");
                         int result =scanner.nextInt();
                         if (result==3)
                             break;
@@ -258,7 +258,7 @@ public class Main {
         while (b) {
             y.ShowMassage();
             System.out.println("|______________________________________________|");
-            System.out.println("1-sent massage  2- reply massage  3-delete  21-exit");
+            System.out.println("1-sent massage  \n2- reply massage  \n3-delete  \n21-exit");
             int re=scanner.nextInt();
             if (re==21)
                 b=false;
@@ -433,7 +433,7 @@ public class Main {
 
         boolean b=false;
             while (b==false) {
-                System.out.println("1- Add post  2- like or dislike 3-Add comment 4-show comment 5-save post  6-Refresh 7-information     21-exit   ");
+                System.out.println("1- Add post  2- like or dislike 3-Add comment 4-show comment 5-save post  6-Back step 7-information     21-exit   ");
                 switch (scanner.nextInt()) {
                     case 1: {
                         try {
@@ -661,6 +661,8 @@ public class Main {
 //        else{
 //            return false;
 //        }
+
+
         return true;
 
     }
