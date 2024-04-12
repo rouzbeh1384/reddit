@@ -197,7 +197,6 @@ public class Main {
                            switch (scanner.nextInt()) {
                                case 1: {
                                    String title = "", text = "";
-                                   //TODO title is not unique
                                    query = "select *from post";
                                    result = state.executeQuery(query);
                                    boolean return_title = true;
