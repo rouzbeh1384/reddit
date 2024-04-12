@@ -18,7 +18,7 @@ public class Main {
                 exit(0);
             else if(a==1){
                 try {
-                    boolean b=true,w=false;
+                    boolean find=true,w=false;
                     Class.forName("com.mysql.jdbc.Driver").newInstance();
                     String url = "jdbc:mysql://localhost:3306/sqlreddit?user=root";
                     Connection connect = DriverManager.getConnection(url);
@@ -30,21 +30,20 @@ public class Main {
 
                     String user="",pass="",email="";
 
-                    while (b) {
+                    while (find) {
                         System.out.println("username: ");
                          user = scanner.next();
                         System.out.println("passWord: ");
                         pass=scanner.next();
                         System.out.println("email");
                         email=scanner.next();
-                        while (result.next() ){
+                        find=false;
+                        while (result.next()){
                             if (result.getString(1).equals(user)){
-                                w=true;
+                                find=true;
                                 break;
                             }
                         }
-                        if(w==false)
-                            b=false;
                     }
                     LocalTime currentTime = LocalTime.now();
                     String query1 = "insert into acconut(username,password,email,karam,date) values('%s','%s','%s',%s,%s)";
@@ -52,6 +51,7 @@ public class Main {
                     state.execute(query1);
                     state.close();
                     connect.close();
+                    out.println("Successful");
                 }catch(IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e){
                     e.printStackTrace();
                 }
@@ -113,6 +113,8 @@ public class Main {
                        while (b) {
                            String query="select * from subreddit";
                            ResultSet result=state.executeQuery(query);
+
+                           System.out.println("inter name of subreddit");
                            Subname=scanner.next();
 
                            while (result.next() ){
@@ -125,7 +127,7 @@ public class Main {
                                b=false;
                        }
 
-                       String query="insert into subreddit(name,username,admin,Time)values('%s','%s','%s',%s,%s)";
+                       String query="insert into subreddit(name,username,admin,Time)values('%s','%s','%s',%s)";
                        LocalTime currentTime=LocalTime.now();
                        query = String.format(query, Subname, name , name , currentTime.getHour());
                        state.execute(query);
@@ -164,13 +166,14 @@ public class Main {
                        ResultSet result=state.executeQuery(query);
                        while (result.next()){
                            conter++;
-                           System.out.println(conter +" - "+result.getString(1)+"|_____|"+result.getString(4));
+                           System.out.println(conter +" - "+result.getString(1)+"  |_____|  "+result.getString(4));
                        }
                        System.out.println("inter name of subreddit  or \n\"exit\"");
                        String Sub=scanner.next();
-                       while (true) {
+                       boolean b=true;
+                       while (b) {
                        if (Sub.equals("exit"))
-                            break;
+                            b=false;
 
                            query = "select * from post";
                            result = state.executeQuery(query);
@@ -187,56 +190,125 @@ public class Main {
 
                                }
                            }
-                           System.out.println("1-add post \n2-add comment  \n3- show comment 4-change post(own) 21-exit ");
+                           System.out.println("1-add post \n2-add comment  \n3-show comment \n4-change post(own) 21-exit ");
                            switch (scanner.nextInt()) {
                                case 1: {
                                    String title = "", text = "";
-                                   boolean b=true,w=false;
-
-                                   while (b) {
-                                        query="select * from post";
-                                        result=state.executeQuery(query);
-                                        System.out.println("inter your title ");
-                                        title=scanner.next();
-
-                                       while (result.next() ){
-                                           if (result.getString(1).equals(title)){
-                                               w=true;
-                                               break;
-                                           }
-                                       }
-                                       if(w==false) {
-                                           b = false;
-                                           System.out.println("inter your post (for end enter ~)");
-                                           String str="";
-                                           while (str.equals("~")){
-                                               text=text+str;
-                                               str=scanner.next();
-                                           }
-                                       }
+                                    //TODO title is not unique
+                                   System.out.println("inter your title ");
+                                   title=scanner.next();
+                                   System.out.println("inter your post (for end enter ~)");
+                                   String str="";
+                                   while (str.equals("~")){
+                                       text=text+str;
+                                       str=scanner.next();
                                    }
 
                                    LocalTime localTime = LocalTime.now();
-                                   query = "insert into post (Title,test,subReddit,writer,Time,like, dis_like) values ('%s','%s','%s','%s',%s,%s,%s)";
-                                   query = String.format(title, text, name, localTime.getHour(), 0, 0);
+                                   query = "insert into post (Title,test,subReddit,writer,Time,like_, dis_like) values ('%s','%s','%s','%s',%s,%s,%s)";
+                                   query = String.format(query,title, text,Sub, name, localTime.getHour(), 0, 0);
                                    state.execute(query);
                                    System.out.println("Successful");
-
-
                                }break;
+//                               //1-post	2-text	3-writer	4-Time
                                case 2: {
+                                   System.out.println("title of post : ");
+                                   String string=scanner.next();
+                                   query="select * from post";
+                                   result=state.executeQuery(query);
+                                   {
+                                       while (result.next()){
+                                           if(result.getString(1).equals(string)){
+                                               System.out.println("inert your comment (for end ~): ");
+                                               String str="",text="";
+
+                                               while (str.equals("~")){
+                                                   text=text+" "+str;
+                                                   str=scanner.next();
+                                               }
+                                             query="insert into comment(psot,test,writer,Time) values ('%s','%s','%s',%s)";
+                                             LocalTime localTime=LocalTime.now();
+                                             query=String.format(query,string,text,name,localTime.getHour());
+                                             state.execute(query);
+                                           }
+                                       }
+                                   }
                                }break;
+                               //1-post	2-text	3-writer	4-Time
                                case 3:{
+                                   System.out.println("title of post : ");
+                                   String string=scanner.next();
+                                   query="select * from comment";
+                                   result=state.executeQuery(query);
+                                   conter=0;
+                                       while (result.next()){
+                                           if(result.getString(1).equals(string)){
+                                               conter++;
+                                               System.out.println(conter+" Title post: "+result.getString(1)+"\n"+
+                                                      "comment : "+ result.getString(2)+"\n"+
+                                                       "writer :"+result.getString(3)+"\n"+
+                                                       "Time : "+result.getString(4)
+                                               );
+                                           }
+                                       }
+
+                               }break;
+                               //4-change post(own)
+                               case 4:{
+                                   System.out.println("title of post : ");
+                                   String string=scanner.next();
+                                    //Title	test	subReddit	writer	Time	like_	dis_like
+                                   System.out.println("Title");
+                                   String titel=scanner.next();
+                                   String str="",string1="";
+                                   System.out.println("inter your post ");
+                                   while ( str.equals("~")){
+                                       string1=string1+" "+str;
+                                       str=scanner.next();
+                                   }
+                                   query = "select * from post";
+                                   result = state.executeQuery(query);
+
+                                   while (result.next()){
+                                       if(result.getString(1).equals(titel)&& result.getString(4).equals(name)){
+                                           query="update post set Title='%s', test='%s',subreddit='%s' ,writer='%s',Time=%s,like_=%s,dis_like=%s where Title='%s'";
+                                           LocalTime localTime=LocalTime.now();
+                                           query=String.format(query,titel,string1,Sub,name,localTime.getHour(),
+                                                   Integer.parseInt(result.getString(6)),Integer.parseInt(result.getString(7)),titel);
+                                           state.execute(query);
+                                           break;
+                                       }
+                                   }
+
+                               }break;
+                               case 5:{
+                                   System.out.println("title of post : ");
+                                   String string=scanner.next();
+                                   //Title	test	subReddit	writer	Time	like_	dis_like
+                                   System.out.println("Title");
+                                   String titel=scanner.next();
+
+                                   query = "select * from post";
+                                   result = state.executeQuery(query);
+
+                                   while (result.next()){
+                                       if(result.getString(1).equals(titel)&& result.getString(4).equals(name)){
+                                           query="delete from where Title='%s',subReddit='%s',writer='%s',";
+                                           query=String.format(query,titel,Sub,name);
+                                           state.execute(query);
+                                           break;
+                                       }
+                                   }
 
                                }break;
                                case 21:{
                                    Sub="exit";
                                }
-
                            }
-
                        }
                    }break;
+                   case 21:
+                       out=true;
 
                }
             }
