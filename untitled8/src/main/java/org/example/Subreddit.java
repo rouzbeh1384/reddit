@@ -1,31 +1,47 @@
 package org.example;
 
+import java.util.ArrayList;
+
 public class Subreddit {
 
     private String Title;
 
-    private String text;
 
-    private String writer;
 
+    public ArrayList<User> userName;
+
+    public ArrayList<User> admin;
     private int Time;
+    public ArrayList<Post> posts;
 
 
-    public Subreddit(String Title,String text,String writer,int Time){
-        this.writer=writer;
+    public int Number;
+
+
+    public Subreddit(String Title,int Time){
         this.Title=Title;
-        this.text=text;
         this.Time=Time;
+        userName=new ArrayList<>();
+        admin=new  ArrayList<>();
+        posts=new ArrayList<>();
+
     }
     public void setTitle(String Title){
         this.Title=Title;
     }
-    public void setText(String text){
-        this.text=text;
+
+    public void setUserName(User userName){
+        this.userName.add(userName);
     }
-    public void setWriter(String writer){
-        this.writer=writer;
+
+    public ArrayList<User> getAdmin() {
+        return admin;
     }
+
+    public ArrayList<User> getUserName() {
+        return userName;
+    }
+
     public void setTime(int Hour ){
         this.Time=Hour;
     }
@@ -34,20 +50,19 @@ public class Subreddit {
         return this.Title;
     }
 
-    public String getWriter(){
-        return this.writer;
-    }
-
-    public String getText(){
-        return this.text;
-    }
-
     public int getTime(){
         return this.Time;
     }
 
+    public void setAdmin(User admin) {
+        this.admin.add(admin);
+    }
 
+    public void setPosts(Post post) {
+        this.posts.add(post);
+    }
 
-
-
+    public Post newest() {
+        return posts.get(posts.size()-1);
+    }
 }
